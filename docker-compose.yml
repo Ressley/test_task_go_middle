@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  grpc-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: grpc-server-runtime
+    ports:
+      - "50051:50051"
+
+  http-grpc-client:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: http-grpc-client-runtime
+    ports:
+      - "8080:8080"
+    depends_on:
+      - grpc-server
+
+  test-client:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: test-client-runtime
+    depends_on:
+      - http-grpc-client

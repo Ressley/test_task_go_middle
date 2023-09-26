@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package service;
+
+option go_package="github.com/ressley/test_task_go_middle/pkg/eventBus_v1;eventBus_v1";
+
+message Event {
+    bytes data = 1;
+}
+
+service EventService {
+    rpc EventBus(Event) returns (EmptyResponse);
+}
+
+message EmptyResponse {}
